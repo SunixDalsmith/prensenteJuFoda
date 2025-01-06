@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Completa</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: white;
+            overflow: hidden;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+
+            background-size: cover;
+            background-position: bottom; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+            background-size: 100%;
+        }
+
+        .falling-heart {
+            position: absolute;
+            top: -10%;
+            animation: fall 10s infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        .content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .content img {
+            width: 200px;
+            margin-bottom: 1rem;
+        }
+
+        .content h1 {
+            font-size: 2.5rem;
+            margin: 1rem 0;
+            color: #ff69b4;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .confetti-btn {
+            font-size: 2rem;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            border-radius: 50%;
+            background-color: #ff69b4;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s;
+            margin-top: 1rem;
+        }
+
+        .confetti-btn:active {
+            transform: scale(0.9);
+        }
+
+        .progress-container {
+            margin-top: 1rem;
+            width: 80%;
+            max-width: 400px;
+            background-color: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            align-self: center;
+        }
+
+        .progress-bar {
+            height: 20px;
+            width: 0;
+            background-color: #ff69b4;
+            transition: width 0.2s;
+            align-self: center;
+        }
+
+        .progress-text {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .instruction-text {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .buttons button {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .btn-yes {
+            background-color: #32cd32;
+            color: white;
+        }
+
+        .btn-yes:hover {
+            background-color: #3ee53e;
+        }
+
+        .btn-no {
+            background-color: #ff6347;
+            color: white;
+        }
+
+        .btn-no:hover {
+            background-color: #ff847a;
+        }
+
+        .resize-gif {
+            height: 200;
+            width: 500;
+        }
+        p {
+            margin: 5px 0; 
+            line-height: 1.1;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <div class="content" id="page1">
+        <img src="https://media1.tenor.com/m/gf69hwnGmoAAAAAC/peach-goma.gif" style="width: 300px; height: auto;" alt="Gif celebrando">
+
+
+        <h1>PARABÉNS JU!!! 🥳🥳❤️</h1>
+
+
+        <div class="button-container">
+            <button class="confetti-btn" id="confetti-button">🥳</button>
+        </div>
+        <div class="button-container"> 
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+        
+
+
+        <p class="progress-text" id="progress-text">Clica...</p>
+    </div>
+
+    <div class="content" id="page2" style="display: none;">
+        <img src="https://media.tenor.com/mxg1RwQmzQQAAAAj/peach-goma-love-pat-head-cheek.gif" alt="Gif pergunta" style="width: 300px; height: auto;">
+        <h1>Gostou da surpresa?🥺 </h1>
+
+        <div class="buttons">
+            <button class="btn-yes" onclick="showFinalPage()">Sim</button>
+            <button class="btn-no" onmouseover="moveButton(event)">Não</button>
+        </div>
+    </div>
+
+    <div class="content" id="page3" style="display: none;">
+        <img src="https://i.pinimg.com/originals/67/fd/98/67fd984efe2590ec5e49b2cc9ee55e14.gif" alt="Gif comemoras" style="width: 300px; height: auto;">
+        <h1>Quase minha, mas já dona do meu coração</h1>
+        <p>Slk, já parou pra pensar como a gente se conheceu? Tipo, foi muita coincidência, né? </p>
+        <p> Acho que é destino, só pode. Mesmo a gente estando longe, dá a maior sensação de que você tá pertinho, sabe?</p>
+        <p> Eu sei que isso não é muito, mas é de coração. Só queria dizer que vc é muito especial pra mim.  </p>
+        <p>Te amo e feliz aniversário, minha fedida favorita ❤️</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        const confettiButton = document.getElementById('confetti-button');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        const page3 = document.getElementById('page3');
+        let progress = 0;
+        let decreaseInterval;
+
+        const updateProgressBar = () => {
+            progressBar.style.width = `${progress}%`;
+
+            if (progress >= 100) {
+                progressText.textContent = "Finalmente né";
+                clearInterval(decreaseInterval);
+                setTimeout(() => {
+                    page1.style.display = 'none';
+                    page2.style.display = 'block';
+                }, 2000);
+            } else {
+                progressText.textContent = "Tem q ser rapida...";
+            }
+        };
+
+        confettiButton.addEventListener('click', () => {
+            confetti({
+                particleCount: 50,
+                spread: 70,
+                origin: { x: 0.5, y: 0.6 },
+            });
+
+            progress = Math.min(progress + 10, 100);
+            updateProgressBar();
+        });
+
+        decreaseInterval = setInterval(() => {
+            if (progress > 0) {
+                progress = Math.max(progress - 10, 0);
+                updateProgressBar();
+            }
+        }, 200);
+
+        function showFinalPage() {
+            page2.style.display = 'none';
+            page3.style.display = 'block';
+        }
+
+        function moveButton(event) {
+            const button = event.target;
+            const newLeft = Math.random() * (window.innerWidth - button.offsetWidth);
+            const newTop = Math.random() * (window.innerHeight - button.offsetHeight);
+
+            button.style.position = 'absolute';
+            button.style.left = `${newLeft}px`;
+            button.style.top = `${newTop}px`;
+        }
+
+        // Criar corações caindo
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.textContent = '❤️';
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.fontSize = `${Math.random() * 50 + 10}px`;
+            heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 15000);
+        }, 300);
+    </script>
+</body>
+</html>
